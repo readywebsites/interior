@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'upload',
     'django_cleanup.apps.CleanupConfig',
+    'viewflow',
     'meta',
 
 ]
