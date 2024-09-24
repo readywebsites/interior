@@ -1,0 +1,42 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  {% block SEO %}
+  {% endblock SEO %} 
+
+
+  {% block vendor_style %}
+  {% endblock vendor_style %}
+  
+  {% include "base_templates/head.html" %}
+  
+{% load static %}
+</head>
+
+<body class=  "{% block body_class %} {% endblock body_class %}">
+  
+
+  {% include "base_templates/headernmenu.html" %}
+  
+  {% block content %}
+  {% endblock content %}
+
+  {% block map %}
+  {% endblock map %}
+
+  {% include "base_templates/footer.html" %}
+
+  {% include "base_templates/modal_form.html" %}
+
+  {% block scripts %}
+  {% endblock scripts %}
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!-- Modal Contact Form -->
+<div class="modal" tabindex="-1" id="modal-contact">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <button class="btn-close btn-close--custom" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-title">
+          Contact
+        </div>
+        <form class="form contact-form js-form-contact" method="post" action="{% url 'contact' %}">
+          {% csrf_token %}
+          <div class="alert alert-sm alert-danger js-form-feedback small p-2 d-none"></div>
+          <div class="form-fields">
+            <div class="row">
+              <div class="col-12 col-sm-12 col-lg-6">
+                <div class="form-group">
+                  <input class="form-control" type="text" placeholder="Name" name="name" autocomplete="name" required>
+                </div>
+              </div>
+              <div class="col-12 col-sm-12 col-lg-6">
+                <div class="form-group">
+                  <div class="dropdown-field">
+                    <select class="form-select" name="company" autocomplete="company" required>
+                      <option selected disabled>Company To Contact</option>
+                      <option value="vastukar_architects">Vastukar Architects</option>
+                      <option value="vastukar_interior">Vastukar Interior Designs</option>
+                      <option value="certified_construction">Certified Construction Services</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 col-sm-12 col-lg-6">
+                <div class="form-group">
+                  <input class="form-control" type="email" placeholder="Email" name="email" autocomplete="email" required>
+                </div>
+              </div>
+              <div class="col-12 col-sm-12 col-lg-6">
+                <div class="form-group">
+                  <input class="form-control" type="tel" placeholder="Phone" name="phone" autocomplete="phone" required>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <textarea class="form-control" rows="3" placeholder="Message" name="message"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-bottom">
+            <div class="form-agreement">
+              <label class="checkbox-field">
+                <input type="checkbox" name="agree" value="True" id="agree" required>
+                <span class="checkbox-field__icon"></span>
+                <span class="checkbox-field__text">
+                  I agree to the <a href="{% url 'privacy_policy' %}" class="js-agreement-text-link">privacy statement</a>
+                </span>
+              </label>
+            </div>
+            <div class="form-submit">
+              <button class="btn btn-primary btn--with-icon" type="submit">
+                <span class="btn__text">Submit</span>
+                <span class="btn__icon"><span class="icon icon-arrow-right"></span></span>
+              </button>
+            </div>
+          </div>
+        </form>
+        <div class="modal-contacts">
+          <div class="modal-contacts__col">
+            <div class="modal-contacts__title">
+              ADDRESS
+            </div>
+            <div class="modal-contacts__text">
+              FG 131, Happy Hallmark Shoppers<br>
+              Vesu, Surat
+            </div>
+          </div>
+          <div class="modal-contacts__col">
+            <div class="modal-contacts__title">
+              EMail
+            </div>
+            <div class="modal-contacts__text">
+              <a href="mailto:contact@vastukararchitects.com">contact@vastukararchitects.com</a>
+            </div>
+          </div>
+          <div class="modal-contacts__col">
+            <div class="modal-contacts__title">
+              Phone
+            </div>
+            <div class="modal-contacts__text">
+              <a href="tel:+919999999999">+91 9999999999</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- JavaScript to handle form submission and success message -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $('#modal-contact form').on('submit', function (e) {
+      e.preventDefault(); // Prevent default form submission
+
+      // Validate the form before submitting
+      var agreeCheckbox = document.getElementById('agree');
+      if (!agreeCheckbox.checked) {
+        alert('Please agree to the privacy statement.');
+        return false;
+      }
+
+      // Submit the form using AJAX
+      $.ajax({
+        url: $(this).attr('action'),
+        type: 'post',
+        data: $(this).serialize(),
+        success: function () {
+          // Display a success message and redirect after a short delay
+          alert('Thank you! We\'ll contact you shortly.');
+          $('#modal-contact').modal('hide'); // Hide the contact modal
+
+          // Reset the form
+          $('#modal-contact form')[0].reset();
+
+        },
+        error: function () {
+          // Handle error if needed
+        }
+      });
+    });
+  });
+</script>
